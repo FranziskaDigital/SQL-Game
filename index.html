@@ -4,12 +4,73 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Das Geheimnis der Datenbank</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Courier New', monospace;
+      background: #121212;
+      color: #00ff00;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #00ff00;
+      background: #0a0a0a;
+    }
+    h1 {
+      text-align: center;
+      color: #00ff00;
+    }
+    #game {
+      margin-top: 20px;
+    }
+    #story {
+      font-size: 1.2em;
+      line-height: 1.6;
+    }
+    #sqlInput {
+      width: 70%;
+      padding: 10px;
+      font-family: 'Courier New', monospace;
+      background: #1e1e1e;
+      color: #00ff00;
+      border: 1px solid #00ff00;
+      margin-right: 10px;
+    }
+    button {
+      padding: 10px 15px;
+      background: #00ff00;
+      color: #000;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #00cc00;
+    }
+    #output {
+      margin-top: 15px;
+      font-size: 1em;
+      white-space: pre-wrap;
+      background: #1e1e1e;
+      padding: 10px;
+      border: 1px solid #00ff00;
+      min-height: 50px;
+    }
+    #win {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 1.4em;
+      color: #ffcc00;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
     <h1>⚔️ Das Geheimnis der Datenbank</h1>
-    <p>Ein alter Schatz ist in der Datenbank versteckt. Finde ihn mit SQL!</p>
+    <p>Ein alter Schatz ist versteckt. Finde ihn mit SQL-Befehlen!</p>
 
     <div id="game">
       <p id="story">Du stehst vor einer alten Datenbank. Was willst du tun?</p>
@@ -24,6 +85,78 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    // Simulierte Daten (wie in einer echten Datenbank)
+    let datenbank = {
+      Spieler: [
+        { id: 1, name: "Abenteurer", level: 1 },
+        { id: 2, name: "Lara", level: 3 }
+      ],
+      Rätsel: [
+        { id: 1, frage: "Welcher Befehl zeigt alle Daten?", antwort: "SELECT * FROM" },
+        { id: 2, frage: "Wie heißt der Spieler mit ID 1?", antwort: "Abenteurer" }
+      ],
+      Schatz: [
+        { id: 1, beschreibung: "Ein SQL-Abenteuer ist immer ein Erfolg!" }
+      ]
+    };
+
+    // Simuliert SQL-Befehle
+    function sendSQL() {
+      const input = document.getElementById('sqlInput').value.trim();
+      const output = document.getElementById('output');
+      const story = document.getElementById('story');
+
+      if (!input) {
+        output.textContent = "Bitte gib einen SQL-Befehl ein!";
+        return;
+      }
+
+      try {
+        // Nur einfache Befehle simulieren
+        if (input.toLowerCase().startsWith("select * from ")) {
+          const tabelle = input.toLowerCase().replace("select * from ", "").trim();
+          if (datenbank[tabelle]) {
+            const daten = datenbank[tabelle];
+            output.textContent = "✅ Ergebnis:\n" + JSON.stringify(daten, null, 2);
+          } else {
+            output.textContent = "❌ Tabelle nicht gefunden!";
+          }
+        }
+
+        else if (input.toLowerCase().startsWith("select * from schatz")) {
+          output.textContent = "✅ Ergebnis:\n" + JSON.stringify(denSchatz(), null, 2);
+          story.textContent = "Du hast den Schatz gefunden! 🎉";
+          document.getElementById('win').style.display = 'block';
+        }
+
+        else if (input.toLowerCase().startsWith("select name from spieler")) {
+          const namen = datenbank.Spieler.map(s => s.name);
+          output.textContent = "✅ Ergebnis:\n" + namen.join("\n");
+        }
+
+        else if (input.toLowerCase().startsWith("where")) {
+          output.textContent = "✅ Befehl erfolgreich ausgeführt (simuliert).";
+        }
+
+        else {
+          output.textContent = "❌ Befehl nicht erkannt. Versuche: SELECT * FROM Spieler;";
+        }
+
+      } catch (err) {
+        output.textContent = "❌ Fehler: " + err.message;
+      }
+    }
+
+    // Funktion, um den Schatz zu holen
+    function denSchatz() {
+      return datenbank.Schatz;
+    }
+
+    // Starte das Spiel
+    window.onload = () => {
+      document.getElementById('story').textContent = "Du stehst vor einer alten Datenbank. Was willst du tun? Gib einen SQL-Befehl ein!";
+    };
+  </script>
 </body>
 </html>
