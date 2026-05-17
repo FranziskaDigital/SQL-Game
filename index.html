@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Das Geheimnis der Datenbank</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>⚔️ Das Geheimnis der Datenbank</h1>
+    <p>Ein alter Schatz ist in der Datenbank versteckt. Finde ihn mit SQL!</p>
+
+    <div id="game">
+      <p id="story">Du stehst vor einer alten Datenbank. Was willst du tun?</p>
+      <input type="text" id="sqlInput" placeholder="Gib einen SQL-Befehl ein..." />
+      <button onclick="sendSQL()">Ausführen</button>
+      <div id="output"></div>
+    </div>
+
+    <div id="win" style="display:none;">
+      <h2>🎉 Herzlichen Glückwunsch! Du hast den Schatz gefunden!</h2>
+      <p>Der Schatz war: <strong>„Ein SQL-Abenteuer ist immer ein Erfolg!“</strong></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+-- Schatz-Tabelle
+CREATE TABLE Schatz (
+  id INTEGER PRIMARY KEY,
+  beschreibung TEXT
+);
+INSERT INTO Schatz (id, beschreibung) VALUES (1, 'Ein SQL-Abenteuer ist immer ein Erfolg!');
+
+-- Spieler-Tabelle
+CREATE TABLE Spieler (
+  id INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  level INTEGER DEFAULT 1
+);
+INSERT INTO Spieler (name) VALUES ('Abenteurer');
+
+-- Rätsel-Tabelle
+CREATE TABLE Rätsel (
+  id INTEGER PRIMARY KEY,
+  frage TEXT,
+  antwort TEXT
+);
+INSERT INTO Rätsel (frage, antwort) VALUES ('Welcher Befehl zeigt alle Daten?', 'SELECT * FROM');

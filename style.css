@@ -1,0 +1,69 @@
+body {
+    font-family: 'Courier New', monospace;
+    background: #121212;
+    color: #00ff00;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #00ff00;
+    background: #0a0a0a;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #00ff00;
+  }
+  
+  #game {
+    margin-top: 20px;
+  }
+  
+  #story {
+    font-size: 1.2em;
+    line-height: 1.6;
+  }
+  
+  #sqlInput {
+    width: 70%;
+    padding: 10px;
+    font-family: 'Courier New', monospace;
+    background: #1e1e1e;
+    color: #00ff00;
+    border: 1px solid #00ff00;
+    margin-right: 10px;
+  }
+  
+  button {
+    padding: 10px 15px;
+    background: #00ff00;
+    color: #000;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background: #00cc00;
+  }
+  
+  #output {
+    margin-top: 15px;
+    font-size: 1em;
+    white-space: pre-wrap;
+    background: #1e1e1e;
+    padding: 10px;
+    border: 1px solid #00ff00;
+    min-height: 50px;
+  }
+  
+  #win {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 1.4em;
+    color: #ffcc00;
+  }
