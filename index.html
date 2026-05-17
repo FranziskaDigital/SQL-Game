@@ -103,50 +103,58 @@
 
     // Simuliert SQL-Befehle
     function sendSQL() {
-      const input = document.getElementById('sqlInput').value.trim();
-      const output = document.getElementById('output');
-      const story = document.getElementById('story');
+  const input = document.getElementById('sqlInput').value.trim();
+  const output = document.getElementById('output');
+  const story = document.getElementById('story');
 
-      if (!input) {
-        output.textContent = "Bitte gib einen SQL-Befehl ein!";
-        return;
-      }
+  if (!input) {
+    output.textContent = "Bitte gib einen SQL-Befehl ein!";
+    return;
+  }
 
-      try {
-        // Nur einfache Befehle simulieren
-        if (input.toLowerCase().startsWith("select * from ")) {
-          const tabelle = input.toLowerCase().replace("select * from ", "").trim();
-          if (datenbank[tabelle]) {
-            const daten = datenbank[tabelle];
-            output.textContent = "✅ Ergebnis:\n" + JSON.stringify(daten, null, 2);
-          } else {
-            output.textContent = "❌ Tabelle nicht gefunden!";
-          }
-        }
+  try {
+    const lowerInput = input.toLowerCase().trim();
 
-        else if (input.toLowerCase().startsWith("select * from schatz")) {
-          output.textContent = "✅ Ergebnis:\n" + JSON.stringify(denSchatz(), null, 2);
-          story.textContent = "Du hast den Schatz gefunden! 🎉";
-          document.getElementById('win').style.display = 'block';
-        }
+    // Nur einfache Befehle simulieren
+    if (lowerInput.startsWith("select * from ")) {
+      const tabelle = lowerInput.replace("select * from ", "").trim();
+      const tabelleName = {
+        "spieler": "Spieler",
+        "rätsel": "Rätsel",
+        "schatz": "Schatz"
+      }[tabelle];
 
-        else if (input.toLowerCase().startsWith("select name from spieler")) {
-          const namen = datenbank.Spieler.map(s => s.name);
-          output.textContent = "✅ Ergebnis:\n" + namen.join("\n");
-        }
-
-        else if (input.toLowerCase().startsWith("where")) {
-          output.textContent = "✅ Befehl erfolgreich ausgeführt (simuliert).";
-        }
-
-        else {
-          output.textContent = "❌ Befehl nicht erkannt. Versuche: SELECT * FROM Spieler;";
-        }
-
-      } catch (err) {
-        output.textContent = "❌ Fehler: " + err.message;
+      if (tabelleName && datenbank[tabelleName]) {
+        const daten = datenbank[tabelleName];
+        output.textContent = "✅ Ergebnis:\n" + JSON.stringify(daten, null, 2);
+      } else {
+        output.textContent = "❌ Tabelle nicht gefunden! Versuche: SELECT * FROM Spieler;";
       }
     }
+
+    else if (lowerInput.startsWith("select * from schatz")) {
+      output.textContent = "✅ Ergebnis:\n" + JSON.stringify(denSchatz(), null, 2);
+      story.textContent = "Du hast den Schatz gefunden! 🎉";
+      document.getElementById('win').style.display = 'block';
+    }
+
+    else if (lowerInput.startsWith("select name from spieler")) {
+      const namen = datenbank.Spieler.map(s => s.name);
+      output.textContent = "✅ Ergebnis:\n" + namen.join("\n");
+    }
+
+    else if (lowerInput.includes("where")) {
+      output.textContent = "✅ Befehl erfolgreich ausgeführt (simuliert).";
+    }
+
+    else {
+      output.textContent = "❌ Befehl nicht erkannt.\n\nVersuche:\n- SELECT * FROM Spieler;\n- SELECT * FROM Rätsel;\n- SELECT * FROM Schatz;";
+    }
+
+  } catch (err) {
+    output.textContent = "❌ Fehler: " + err.message;
+  }
+}
 
     // Funktion, um den Schatz zu holen
     function denSchatz() {
